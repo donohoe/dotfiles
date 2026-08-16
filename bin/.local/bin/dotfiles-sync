@@ -41,4 +41,13 @@ if grep -q '^waybar/' <<< "$changed"; then
     disown
 fi
 
+if grep -q '^autostart/' <<< "$changed"; then
+    echo "dotfiles-sync: reloading systemd user units for autostart changes"
+    systemctl --user daemon-reload
+    # Note: this only picks up the new .desktop definition. An already-
+    # running unit from a previous definition isn't stopped automatically --
+    # restart it manually if a change needs that, e.g.:
+    #   systemctl --user stop app-<name>@autostart.service
+fi
+
 echo "dotfiles-sync: done"
