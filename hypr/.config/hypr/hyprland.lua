@@ -224,8 +224,11 @@ hl.config({
 
 hl.config({
     input = {
-        kb_layout  = "us",
-        kb_variant = "",
+        -- "gb" + "mac" matches the physical Apple UK keyboard (1! 2@ 3£,
+        -- Option/Cmd dead-key behavior). Verify the printed symbols still
+        -- match once tested; see HANDOFF.md for the exact key markings.
+        kb_layout  = "gb",
+        kb_variant = "mac",
         kb_model   = "",
         kb_options = "",
         kb_rules   = "",
@@ -235,7 +238,10 @@ hl.config({
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
 
         touchpad = {
-            natural_scroll = false,
+            natural_scroll       = true,
+            tap_to_click         = true,
+            clickfinger_behavior = true, -- two-finger right-click, three-finger middle-click
+            disable_while_typing = true,
         },
     },
 })
