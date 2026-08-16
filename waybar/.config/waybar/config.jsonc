@@ -1,0 +1,65 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 4,
+
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["tray", "network", "wireplumber", "custom/mic", "battery", "clock"],
+
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "on-click": "activate"
+    },
+
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 60,
+        "separate-outputs": true
+    },
+
+    "tray": {
+        "spacing": 8
+    },
+
+    "clock": {
+        "format": "{:%a %d %b  %H:%M}",
+        "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "BAT {capacity}%",
+        "format-charging": "BAT {capacity}% (charging)",
+        "format-warning": "BAT {capacity}% (low)",
+        "format-critical": "BAT {capacity}% (critical)",
+        "tooltip-format": "{time} remaining"
+    },
+
+    "network": {
+        "format-wifi": "WIFI {essid} ({signalStrength}%)",
+        "format-ethernet": "ETH connected",
+        "format-disconnected": "NET disconnected",
+        "tooltip-format": "{ipaddr}/{cidr}"
+    },
+
+    "wireplumber": {
+        "format": "VOL {volume}%",
+        "format-muted": "VOL muted",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+    },
+
+    "custom/mic": {
+        "exec": "~/.config/waybar/scripts/mic.sh",
+        "interval": 5,
+        "signal": 10,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "tooltip": false
+    }
+}

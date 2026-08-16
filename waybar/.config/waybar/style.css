@@ -1,0 +1,46 @@
+* {
+    font-family: sans-serif;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #202020;
+    color: #e0e0e0;
+    border-bottom: 1px solid #4a4a4a;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #a0a0a0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces button.active {
+    color: #e0e0e0;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+#workspaces button.urgent {
+    color: #e06c75;
+}
+
+#window,
+#tray,
+#network,
+#wireplumber,
+#custom-mic,
+#battery,
+#clock {
+    padding: 0 10px;
+}
+
+#battery.warning {
+    color: #e5c07b;
+}
+
+#battery.critical {
+    color: #e06c75;
+}

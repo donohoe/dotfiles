@@ -1,0 +1,23 @@
+sort=-time
+layer=overlay
+anchor=top-right
+
+width=340
+height=110
+margin=8
+padding=10
+border-size=2
+border-radius=6
+
+default-timeout=6000
+ignore-timeout=false
+max-visible=5
+
+font=sans-serif 11
+background-color=#202020ee
+text-color=#e0e0e0
+border-color=#4a4a4a
+
+[urgency=high]
+border-color=#e06c75
+default-timeout=0
