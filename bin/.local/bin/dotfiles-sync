@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Pull ~/.dotfiles and reload whatever changed. Safe to run any time;
+# does nothing if there's nothing new.
+set -euo pipefail
+
+cd "$HOME/.dotfiles"
+
+before=$(git rev-parse HEAD)
+git pull --ff-only origin main
+after=$(git rev-parse HEAD)
+
+if [[ "$before" == "$after" ]]; then
+    echo "dotfiles-sync: already up to date ($before)"
+    exit 0
+fi
+
+echo "dotfiles-sync: updated $before -> $after"
+changed=$(git diff --name-only "$before" "$after")
+
+if grep -q '^hypr/' <<< "$changed"; then
+    echo "dotfiles-sync: reloading Hyprland config"
+    hyprctl reload
+    # Note: changes inside the hl.on("hyprland.start", ...) autostart
+    # block only take effect on the next full login, not on reload.
+fi
+
+if grep -q 'hypridle.conf' <<< "$changed"; then
+    echo "dotfiles-sync: restarting hypridle"
+    systemctl --user restart hypridle.service
+fi
+
+if grep -q '^mako/' <<< "$changed"; then
+    echo "dotfiles-sync: reloading mako"
+    makoctl reload
+fi
+
+if grep -q '^waybar/' <<< "$changed"; then
+    echo "dotfiles-sync: restarting waybar"
+    pkill waybar 2>/dev/null || true
+    waybar >/dev/null 2>&1 &
+    disown
+fi
+
+echo "dotfiles-sync: done"
